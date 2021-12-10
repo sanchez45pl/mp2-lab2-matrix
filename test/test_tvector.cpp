@@ -260,3 +260,38 @@ TEST(TVector, cant_multiply_vectors_with_not_equal_size)
 	EXPECT_ANY_THROW(v1 * v2);
 }
 
+TEST(TVector, can_add_three_vectors_with_equal_size_MY_TEST)
+{
+	int s = 7;
+	TVector<int> v1(s), v2(s), v3(s), ans(s), expans(s);
+	for (int i = 0; i < s; i++)
+	{
+		v1[i] = v2[i] = v3[i] = i;
+		expans[i] = 3 * i;
+	}
+	ans = v1 + v2 + v3;
+	EXPECT_EQ(ans, expans);
+}
+
+TEST(TVector, can_subtract_three_vectors_with_equal_size_MY_TEST)
+{
+	int s = 7;
+	TVector<int> v1(s), v2(s), v3(s), ans(s), expans(s);
+	for (int i = 0; i < s; i++)
+	{
+		v1[i] = 3 * i;
+		v2[i] = v3[i] = i;
+		expans[i] = i;
+	}
+	ans = v1 - v2 - v3;
+	EXPECT_EQ(ans, expans);
+}
+
+TEST(TVector, operator_not_equal_return_false_with_equal_vectors_MY_TEST)
+{
+	int s = 6;
+	TVector<int> v1(s), v2(s);
+	for (int i = 0; i < s; i++)
+		v1[i] = v2[i] = i + 1;
+	EXPECT_FALSE(v1 != v2);
+}
