@@ -214,18 +214,20 @@ ValType TVector<ValType>::operator*(const TVector<ValType> &v)
     ValType result = 0;
     int delta = v.StartIndex - StartIndex;
     if (StartIndex < v.StartIndex) {
-        for (int i = 0; i < Size - v.StartIndex; i++) {
-            result += pVector[i + delta] * v.pVector[i];
+        TVector<ValType> resVector(*this);
+        for (int i = 0; i < v.Size; i++) {
+           result += resVector.pVector[i + delta] * v.pVector[i];
         }
+        return result;
     }
     else {
+        TVector<ValType> resVector(v);
         for (int i = 0; i < Size; i++) {
-            result += pVector[i] * v.pVector[i];
+            result += pVector[i] * resVector.pVector[i - delta];
         }
+        return result;
     }
-    return result;
 } /*-------------------------------------------------------------------------*/
-
 
 // Верхнетреугольная матрица
 template <class ValType>
